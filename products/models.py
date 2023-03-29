@@ -10,6 +10,9 @@ class ProductCategory(models.Model):
     def __str__(self):
         return self.name
 
+    def has_products(self):
+        return Product.objects.filter(category_id=self.id)
+
 
 class Product(models.Model):
     name = models.CharField(max_length=256)

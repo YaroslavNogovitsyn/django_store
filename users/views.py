@@ -46,11 +46,10 @@ def profile(request):
     else:
         form = UserProfileForm(instance=request.user)
 
-    baskets = Basket.objects.filter(user=request.user)
     context = {
         'title': 'Store - Профиль',
         'form': form,
-        'baskets': baskets
+        'baskets': Basket.objects.filter(user=request.user)
     }
     return render(request, 'users/profile.html', context)
 
