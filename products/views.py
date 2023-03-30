@@ -10,15 +10,16 @@ def index(request):
     return render(request, 'products/index.html', context)
 
 
-def products(request, category_id=None, page_number=1):
+def products(request, category_id=0, page_number=1):
     products_ = Product.objects.filter(category_id=category_id) if category_id else Product.objects.all()
-    paginator = Paginator(object_list=products_, per_page=1)
+    paginator = Paginator(object_list=products_, per_page=3)
     products_paginator = paginator.page(page_number)
 
     context = {
         'title': 'Store - Каталог',
         'categories': ProductCategory.objects.all(),
-        'products': products_paginator
+        'products': products_paginator,
+        'selected_cat': category_id,
     }
     return render(request, 'products/products.html', context)
 
