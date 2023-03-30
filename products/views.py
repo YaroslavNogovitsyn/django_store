@@ -1,7 +1,7 @@
-from django.shortcuts import render, HttpResponseRedirect
+from django.shortcuts import HttpResponseRedirect
 from django.contrib.auth.decorators import login_required
-from django.core.paginator import Paginator
 from django.views.generic.base import TemplateView
+from django.views.generic.list import ListView
 
 from products.models import Product, ProductCategory, Basket
 
@@ -15,18 +15,23 @@ class IndexView(TemplateView):
         return context
 
 
-def products(request, category_id=0, page_number=1):
-    products_ = Product.objects.filter(category_id=category_id) if category_id else Product.objects.all()
-    paginator = Paginator(object_list=products_, per_page=3)
-    products_paginator = paginator.page(page_number)
+class ProductsListView(ListView):
+    model = Product
+    template_name = 'products/products.html'
+    paginate_by = 3
+    context_object_name = "products"
 
-    context = {
-        'title': 'Store - Каталог',
-        'categories': ProductCategory.objects.all(),
-        'products': products_paginator,
-        'selected_cat': category_id,
-    }
-    return render(request, 'products/products.html', context)
+    def get_queryset(self):
+        query_set = super().get_queryset()
+        category_id = self.kwargs.get('category_id')
+        return query_set.filter(category_id=category_id) if category_id else query_set
+
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data()
+        context['title'] = 'Store - Каталог'
+        context['categories'] = ProductCategory.objects.all()
+        context['selected_cat'] = self.kwargs.get('category_id', 0)
+        return context
 
 
 @login_required

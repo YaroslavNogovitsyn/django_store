@@ -36,7 +36,7 @@ class Product(models.Model):
 
 class BasketQuerySet(models.QuerySet):
     def total_sum(self):
-        return sum(basket.sum() for basket in self)
+        return sum(basket.sum for basket in self)
 
     def total_quantity(self):
         return sum(basket.quantity for basket in self)
