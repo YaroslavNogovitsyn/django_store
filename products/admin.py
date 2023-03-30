@@ -16,6 +16,6 @@ class ProductAdmin(admin.ModelAdmin):
 
 class BasketAdmin(admin.TabularInline):
     model = Basket
-    fields = ['product', 'quantity', 'created_timestamp']
-    readonly_fields = ['created_timestamp']
+    fields = ['product', 'quantity', 'created_timestamp', 'sum']
+    readonly_fields = ['created_timestamp', 'sum']
     extra = 0
