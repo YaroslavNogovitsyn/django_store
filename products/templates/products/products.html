@@ -87,10 +87,10 @@
                 {% if is_paginated %}
                     <nav aria-label="Page navigation example">
                         <ul class="pagination justify-content-center">
-                            <li class="page-item {% if not products.has_previous %} disabled {% endif %}">
+                            <li class="page-item {% if not page_obj.has_previous %} disabled {% endif %}">
                                 <a class="page-link"
-                                   href="{% if products.has_previous %}
-                                {% url 'products:catinator' category_id=selected_cat page=products.previous_page_number %}
+                                   href="{% if page_obj.has_previous %}
+                                {% url 'products:catinator' category_id=selected_cat page=page_obj.previous_page_number %}
                                 {% else %} # {% endif %}"
                                    tabindex="-1" aria-disabled="true">
                                     Предыдущая
@@ -104,10 +104,10 @@
                                     </a>
                                 </li>
                             {% endfor %}
-                            <li class="page-item {% if not products.has_next %} disabled {% endif %}">
+                            <li class="page-item {% if not page_obj.has_next %} disabled {% endif %}">
                                 <a class="page-link"
-                                   href="{% if products.has_next %}
-                                {% url 'products:catinator' category_id=selected_cat page=products.next_page_number %}
+                                   href="{% if page_obj.has_next %}
+                                {% url 'products:catinator' category_id=selected_cat page=page_obj.next_page_number %}
                                 {% else %} # {% endif %}">
                                     Следующая
                                 </a>
