@@ -30,7 +30,7 @@ DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 
-DOMAIN_NAME = 'http://localhost:8000'
+DOMAIN_NAME = 'http://127.0.0.1:8000'
 
 # Application definition
 
@@ -106,7 +106,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'NAME': 'store_db',
         'USER': 'store_username',
-        'PASSWORD': 'store_password',
+        'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
         'HOST': 'localhost',
         'PORT': '5432',
     }
@@ -186,3 +186,7 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
     }
 }
+
+# Stripe
+STRIPE_PUBLIC_KEY = 'pk_test_51MsjqqBtnlvrKDdhdTxp1gwXwAtEwoVM83GDX0IpacgbFYiTgNUbH8rQsKrasaDFV7iB2BmOBVCnaB4IKzPZHZyw00vb2uVUPp'
+STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
