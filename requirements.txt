@@ -10,4 +10,7 @@ isort==5.10.1
 
 stripe==5.4.0
 
+django-redis==5.2.0
+redis==4.3.4
+
 psycopg2==2.9.5
