@@ -12,5 +12,6 @@ stripe==5.4.0
 
 django-redis==5.2.0
 redis==4.3.4
+celery==5.2.7
 
 psycopg2==2.9.5

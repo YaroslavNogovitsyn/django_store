@@ -16,6 +16,9 @@ env = environ.Env(
     SECRET_KEY=(str),
     DOMAIN_NAME=(str),
 
+    REDIS_HOST=(str),
+    REDIS_PORT=(str),
+
     DATABASE_NAME=(str),
     DATABASE_USER=(str),
     POSTGRES_PASSWORD=(str),
@@ -232,6 +235,10 @@ SOCIALACCOUNT_PROVIDERS = {
         ],
     }
 }
+# Celery
+
+CELERY_BROKER_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}'
+CELERY_RESULT_BACKEND = f'redis://{REDIS_HOST}:{REDIS_PORT}'
 
 # Stripe
 
