@@ -23,14 +23,14 @@ load_dotenv()
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-5jhch1=j8n!n^hqxnqr*&x1tr8wik1c)j_(d@=95(hq0so4y9h'
+SECRET_KEY = os.environ.get("SECRET_KEY")
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get("DEBUG")
 
 ALLOWED_HOSTS = ['*']
 
-DOMAIN_NAME = 'http://127.0.0.1:8000'
+DOMAIN_NAME = os.environ.get('DOMAIN_NAME')
 
 # Application definition
 
@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.github',
     'debug_toolbar',
+    'django_extensions',
 
     'products',
     'users',
@@ -104,11 +105,11 @@ INTERNAL_IPS = [
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'store_db',
-        'USER': 'store_username',
+        'NAME': os.environ.get('DATABASE_NAME'),
+        'USER': os.environ.get('DATABASE_USER'),
         'PASSWORD': os.environ.get("POSTGRES_PASSWORD"),
-        'HOST': 'localhost',
-        'PORT': '5432',
+        'HOST': os.environ.get('HOST'),
+        'PORT': os.environ.get('PORT'),
     }
 }
 # Password validation
@@ -163,12 +164,14 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 # Sending emails
-
-EMAIL_HOST = 'smtp.yandex.com'
-EMAIL_PORT = 465
-EMAIL_HOST_USER = 'store-serverdjango@yandex.ru'
-EMAIL_HOST_PASSWORD = os.environ.get("SMTP_PASSWORD")
-EMAIL_USE_SSL = True
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+else:
+    EMAIL_HOST = os.environ.get('EMAIL_HOST')
+    EMAIL_PORT = os.environ.get('EMAIL_PORT')
+    EMAIL_HOST_USER = os.environ.get('EMAIL_HOST_USER')
+    EMAIL_HOST_PASSWORD = os.environ.get("SMTP_PASSWORD")
+    EMAIL_USE_SSL = os.environ.get('EMAIL_USE_SSL')
 
 # OAuth
 
@@ -188,6 +191,6 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 # Stripe
-STRIPE_PUBLIC_KEY = 'pk_test_51MsjqqBtnlvrKDdhdTxp1gwXwAtEwoVM83GDX0IpacgbFYiTgNUbH8rQsKrasaDFV7iB2BmOBVCnaB4IKzPZHZyw00vb2uVUPp'
+STRIPE_PUBLIC_KEY = os.environ.get('STRIPE_PUBLIC_KEY')
 STRIPE_SECRET_KEY = os.environ.get("STRIPE_SECRET_KEY")
 STRIPE_WEBHOOK_SECRET = os.environ.get("STRIPE_WEBHOOK_SECRET")
