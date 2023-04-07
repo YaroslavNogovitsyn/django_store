@@ -28,7 +28,8 @@ urlpatterns = [
     path('users/', include('users.urls', namespace='users')),
     path('orders/', include('orders.urls', namespace='orders')),
     path('webhook/stripe/', stripe_webhook_view, name='stripe_webhook'),
-    path('accounts/', include('allauth.urls'))
+    path('accounts/', include('allauth.urls')),
+    path('api/', include('api.urls', namespace='api'))
 ]
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -73,10 +73,12 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.github',
     'debug_toolbar',
     'django_extensions',
+    'rest_framework',
 
     'products',
     'orders',
     'users',
+    'api',
 ]
 
 MIDDLEWARE = [
@@ -116,22 +118,22 @@ INTERNAL_IPS = [
     'localhost',
 ]
 
-# Redis
-
-REDIS_HOST = env('REDIS_HOST')
-REDIS_PORT = env('REDIS_PORT')
-
-# Caches
-
-CACHES = {
-    'default': {
-        'BACKEND': 'django_redis.cache.RedisCache',
-        'LOCATION': f'redis://{REDIS_HOST}:{REDIS_PORT}/1',
-        'OPTIONS': {
-            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
-        }
-    }
-}
+# # Redis
+#
+# REDIS_HOST = env('REDIS_HOST')
+# REDIS_PORT = env('REDIS_PORT')
+#
+# # Caches
+#
+# CACHES = {
+#     'default': {
+#         'BACKEND': 'django_redis.cache.RedisCache',
+#         'LOCATION': f'redis://{REDIS_HOST}:{REDIS_PORT}/1',
+#         'OPTIONS': {
+#             'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+#         }
+#     }
+# }
 # Database
 # https://docs.djangoproject.com/en/4.0/ref/settings/#databases
 
@@ -210,14 +212,14 @@ LOGOUT_REDIRECT_URL = '/'
 
 # Sending emails
 
-if DEBUG:
-    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-else:
-    EMAIL_HOST = env('EMAIL_HOST')
-    EMAIL_PORT = env('EMAIL_PORT')
-    EMAIL_HOST_USER = env('EMAIL_HOST_USER')
-    EMAIL_HOST_PASSWORD = env('SMTP_PASSWORD')
-    EMAIL_USE_SSL = env('EMAIL_USE_SSL')
+# if DEBUG:
+#     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+# else:
+EMAIL_HOST = env('EMAIL_HOST')
+EMAIL_PORT = env('EMAIL_PORT')
+EMAIL_HOST_USER = env('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = env('SMTP_PASSWORD')
+EMAIL_USE_SSL = env('EMAIL_USE_SSL')
 
 # OAuth
 
@@ -237,8 +239,8 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 # Celery
 
-CELERY_BROKER_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}'
-CELERY_RESULT_BACKEND = f'redis://{REDIS_HOST}:{REDIS_PORT}'
+# CELERY_BROKER_URL = f'redis://{REDIS_HOST}:{REDIS_PORT}'
+# CELERY_RESULT_BACKEND = f'redis://{REDIS_HOST}:{REDIS_PORT}'
 
 # Stripe
 
